@@ -261,6 +261,14 @@ a {
   margin-right: 14px;   /* room so the shadow doesn't get clipped */
 }
 
+.hero__visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
 /* ==========================================================
    6. SECTION BASICS (reused by every section)
    ========================================================== */
