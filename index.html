@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <meta
+    name = "viewport"
+    content = "width=device-width, initial-scale=1.0">
+  <title>Abdul-Qahhar Sulaiman | Email, UI & Front-End Designer</title>
+  <meta
+    name = "description"
+    content = "Designer who also builds: email design, UI design and front-end websites.">
+
+  <link rel = "preconnect" href = "https://fonts.googleapis.com">
+  <link
+    rel = "preconnect"
+    href = "https://fonts.gstatic.com"
+    crossorigin>
+  <link
+    href = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@600;700&display=swap"
+    rel = "stylesheet">
+
+  <link rel = "stylesheet" href = "css/styles.css">
+
+  <!-- Runs before paint so there's no flash of the wrong theme.
+       Must stay inline here, not in main.js, which loads too late -->
+  <script>
+    (function () {
+      const saved = localStorage.getItem('aq-portfolio-theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = saved || (systemPrefersDark ? 'dark' : 'light');
+      if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    })();
+  </script>
+</head>
+<body>
+  <!-- Skip link: lets keyboard users jump past the menu -->
+  <a class = "skip-link" href = "#main">Skip to content</a>
+
+  <header class = "site-header">
+    <div class = "container site-header__inner">
+      <a class = "brand" href = "#top">AQ</a>
+
+      <button
+        class = "nav-toggle"
+        type = "button"
+        aria-expanded = "false"
+        aria-controls = "site-nav">
+        Menu
+      </button>
+
+      <button
+        class = "theme-toggle"
+        type = "button"
+        aria-pressed = "false">
+        <span class = "theme-toggle__icon" aria-hidden = "true">🌙</span>
+        <span class = "theme-toggle__label">Dark mode</span>
+      </button>
+
+      <nav class = "site-nav" id = "site-nav" aria-label = "Main">
+        <ul class = "nav-list">
+          <li><a href = "#work">Work</a></li>
+          <li><a href = "#services">Services</a></li>
+          <li><a href = "#about">About</a></li>
+          <li><a href = "#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id = "main">
+
+    <!-- HERO -->
+    <section class = "hero" id = "top">
+      <div class = "container hero__inner">
+        <div class = "hero__text">
+          <p class = "hero__eyebrow">Abdul-Qahhar Sulaiman</p>
+          <h1 class = "hero__title">Designer who also builds.</h1>
+          <p class = "hero__lead">
+            Email, UI and websites, plus branding, social and promotional design.
+            One designer, from concept to code.
+          </p>
+          <a class = "btn" href = "#work">See my work</a>
+        </div>
+        <div class = "hero__visual" aria-hidden = "true"></div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section class = "section" id = "work">
+      <div class = "container">
+        <h2 class = "section__title fade-in">Selected work</h2>
+        <p class = "section__intro">A mix of editorial, brand, promotional and front-end projects.</p>
+
+        <div class = "work-grid">
+
+          <!-- Card 1: workbook -->
+          <article class = "card fade-in" style = "--delay: 0">
+            
+              class = "card__link"
+              href = "https://www.behance.net/gallery/250729623/Manifestation-Morning-Routine-Daily-Media-Group"
+              target = "_blank"
+              rel = "noopener">
+              <img
+                class = "card__image"
+                src = "images/work/workbook-morning-routine.jpg"
+                width = "1200"
+                height = "900"
+                loading = "lazy"
+                alt = "Pages from the Manifestation Morning Routine visual workbook">
+              <div class = "card__body">
+                <p class = "card__tag">Workbook design</p>
+                <h3 class = "card__title">Manifestation Morning Routine</h3>
+                <p class = "card__text">A text-heavy PDF reworked into a clear, guided visual workbook.</p>
+              </div>
+            </a>
+          </article>
+
+          <!-- Card 2: this portfolio — TODO: replace href once the site is deployed -->
+          <article class = "card fade-in" style = "--delay: 1">
+            <a class = "card__link" href = "#" target = "_blank" rel = "noopener">
+              <img
+                class = "card__image"
+                src = "images/work/portfolio-site.jpg"
+                width = "1200"
+                height = "900"
+                loading = "lazy"
+                alt = "Screenshot of this portfolio website">
+              <div class = "card__body">
+                <p class = "card__tag">Front-end</p>
+                <h3 class = "card__title">This portfolio</h3>
+                <p class = "card__text">Designed and coded from scratch: mobile-first, with a dark mode.</p>
+              </div>
+            </a>
+          </article>
+
+          <!-- Card 3: TAG branding -->
+          <article class = "card fade-in" style = "--delay: 2">
+            
+              class = "card__link"
+              href = "https://www.behance.net/gallery/250728635/Brand-Guidelines-TAG-Marketing-Consulting-LLC"
+              target = "_blank"
+              rel = "noopener">
+              <img
+                class = "card__image"
+                src = "images/work/brand-tag.jpg"
+                width = "1200"
+                height = "900"
+                loading = "lazy"
+                alt = "Cover page of the TAG brand guidelines">
+              <div class = "card__body">
+                <p class = "card__tag">Branding</p>
+                <h3 class = "card__title">TAG brand guidelines</h3>
+                <p class = "card__text">A guidelines document defining how the TAG identity is used.</p>
+              </div>
+            </a>
+          </article>
+
+          <!-- Card 4: Adidas flyer (personal project) -->
+          <article class = "card fade-in" style = "--delay: 3">
+            
+              class = "card__link"
+              href = "https://www.behance.net/gallery/250728211/Adidas-Poster-Design"
+              target = "_blank"
+              rel = "noopener">
+              <img
+                class = "card__image"
+                src = "images/work/flyer-adidas.jpg"
+                width = "1200"
+                height = "900"
+                loading = "lazy"
+                alt = "Adidas promotional poster design">
+              <div class = "card__body">
+                <p class = "card__tag">Personal project</p>
+                <h3 class = "card__title">Adidas poster</h3>
+                <p class = "card__text">A self-initiated promotional poster exploring bold type and layout.</p>
+              </div>
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class = "section" id = "services">
+      <div class = "container">
+        <h2 class = "section__title fade-in">Services</h2>
+        <p class = "section__intro">What I can do for you, from first sketch to live page.</p>
+
+        <div class = "services-grid">
+          <article class = "service fade-in">
+            <p class = "service__number">01</p>
+            <h3 class = "service__title">Email &amp; newsletter design</h3>
+            <p class = "service__text">
+              Newsletters designed for clarity and built as HTML email that
+              renders properly across inboxes.
+            </p>
+          </article>
+
+          <article class = "service fade-in">
+            <p class = "service__number">02</p>
+            <h3 class = "service__title">UI design</h3>
+            <p class = "service__text">
+              Clean, usable interfaces for websites and apps, from wireframes
+              to polished screens.
+            </p>
+          </article>
+
+          <article class = "service fade-in">
+            <p class = "service__number">03</p>
+            <h3 class = "service__title">Front-end websites</h3>
+            <p class = "service__text">
+              Fast, responsive websites built from the design and launched live.
+            </p>
+          </article>
+        </div>
+
+        <p class = "services__also">
+          Also available: brand identity, social media design and promotional materials.
+        </p>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class = "section section--alt" id = "about">
+      <div class = "container about">
+        <div class = "about__text">
+          <h2 class = "section__title fade-in">About</h2>
+          <p>
+            I'm Abdul-Qahhar, a graphic designer with 2+ years of experience
+            across media and marketing. I design social media, web, branding,
+            promotional and print materials, and I build front-end websites,
+            so what I design is what actually ships.
+          </p>
+          <p>Based in Cairo, working with clients remotely.</p>
+          <a class = "btn" href = "#contact">Let's work together</a>
+        </div>
+
+        <img
+          class = "about__image fade-in"
+          src = "images/about/abdul-qahhar.jpg"
+          width = "800"
+          height = "800"
+          loading = "lazy"
+          alt = "Portrait of Abdul-Qahhar Sulaiman wearing a blue blazer">
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class = "section" id = "contact">
+      <div class = "container contact">
+        <h2 class = "section__title">Let's work together</h2>
+        <p class = "section__intro">
+          Have a project in mind? Send me a message and tell me what you need.
+        </p>
+
+        <!-- %20 encodes the space in the pre-filled subject line -->
+        <a
+          class = "contact__email"
+          href = "mailto:abdulqahharsulaiman@gmail.com?subject=Project%20enquiry">
+          abdulqahharsulaiman@gmail.com
+        </a>
+
+        <ul class = "social-list" aria-label = "Social profiles">
+          <li><a href = "https://www.linkedin.com/in/abdulqahharsulaiman" target = "_blank" rel = "noopener">LinkedIn</a></li>
+          <li><a href = "https://www.behance.net/abdulqahharsulaiman" target = "_blank" rel = "noopener">Behance</a></li>
+          <li><a href = "https://www.instagram.com/abdulqahharsulaiman" target = "_blank" rel = "noopener">Instagram</a></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class = "site-footer">
+    <div class = "container site-footer__inner">
+      <p>&copy; 2026 Abdul-Qahhar Sulaiman</p>
+      <a href = "#top">Back to top</a>
+    </div>
+  </footer>
+
+  <script src = "js/main.js"></script>
+</body>
+</html>

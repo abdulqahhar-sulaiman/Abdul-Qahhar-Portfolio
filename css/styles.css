@@ -1,0 +1,536 @@
+/* ==========================================================
+   1. DESIGN TOKENS
+   Custom properties (variables). Change a value here and it
+   updates everywhere it is used.
+   ========================================================== */
+:root {
+  /* Colors (light mode) */
+  --color-bg: #FBF6F1;
+  --color-surface: #FFE9E0;
+  --color-text: #1B2A2F;
+  --color-text-muted: #4A5D63;
+  --color-primary: #2F6F6D;
+  --color-accent: #FF7A59;
+  --color-on-accent: #1B2A2F;   /* text color placed ON the accent */
+
+  /* Fonts */
+  --font-heading: "Outfit", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  /* Spacing scale (rem: 1rem = 16px by default) */
+  --space-1: 0.5rem;   /*  8px */
+  --space-2: 1rem;     /* 16px */
+  --space-3: 1.5rem;   /* 24px */
+  --space-4: 2rem;     /* 32px */
+  --space-6: 3rem;     /* 48px */
+  --space-8: 4rem;     /* 64px */
+
+  --radius: 12px;
+  --max-width: 1100px;
+}
+
+/* Dark mode colors. JS adds data-theme="dark" to <html> */
+[data-theme="dark"] {
+  --color-bg: #0F1719;
+  --color-surface: #172427;
+  --color-text: #EDE8E3;
+  --color-text-muted: #A9B8BC;
+  --color-primary: #5FB3AE;
+  --color-accent: #FF8F73;
+}
+
+/* ==========================================================
+   2. RESET + BASE
+   ========================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;   /* padding stays INSIDE the width */
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+html {
+  scroll-behavior: smooth;   /* animate jumps to #anchors */
+}
+
+/* Respect visitors who've asked for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  line-height: 1.1;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+
+/* Skip link: off-screen until it receives keyboard focus */
+.skip-link {
+  position: absolute;
+  left: var(--space-2);
+  top: -100px;
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius);
+}
+
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+/* ==========================================================
+   3. HEADER
+   ========================================================== */
+.site-header {
+  position: relative;   /* anchors the dropdown menu below it */
+  z-index: 10;           /* keeps the menu above the page content */
+}
+
+.site-header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: var(--space-3);
+}
+
+.brand {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.nav-toggle {
+  background: none;
+  border: 2px solid var(--color-text);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 500;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+}
+
+.nav-toggle:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* Hidden by default; drops below the header when opened */
+.site-nav {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: var(--space-3);
+  background: var(--color-bg);
+  border-bottom: 2px solid var(--color-surface);
+}
+
+.site-nav.is-open {
+  display: block;   /* JS adds/removes this class */
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.nav-list a {
+  text-decoration: none;
+}
+
+.nav-list a:hover {
+  color: var(--color-primary);
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: 2px solid var(--color-text);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: var(--space-2);
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* ==========================================================
+   4. BUTTON
+   ========================================================== */
+.btn {
+  display: inline-block;
+  padding: 0.85rem 1.75rem;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius);
+  transition: transform 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* ==========================================================
+   5. HERO (mobile-first: this is the phone layout)
+   ========================================================== */
+.hero__inner {
+  display: grid;
+  gap: var(--space-6);
+  padding-block: var(--space-8);
+}
+
+.hero__eyebrow {
+  color: var(--color-primary);
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+}
+
+.hero__title {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);   /* scales between phone and desktop */
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.hero__lead {
+  margin-block: var(--space-3) var(--space-4);
+  max-width: 34rem;
+  color: var(--color-text-muted);
+  font-size: 1.125rem;
+}
+
+/* Teal block with a coral offset shadow */
+.hero__visual {
+  aspect-ratio: 4 / 3;
+  background: var(--color-primary);
+  border-radius: var(--radius);
+  box-shadow: 14px 14px 0 var(--color-accent);
+  margin-right: 14px;   /* room so the shadow doesn't get clipped */
+}
+
+/* ==========================================================
+   6. SECTION BASICS (reused by every section)
+   ========================================================== */
+.section {
+  padding-block: var(--space-8);
+}
+
+.section__title {
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  letter-spacing: -0.01em;
+}
+
+.section__intro {
+  margin-top: var(--space-1);
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================
+   7. WORK GRID + CARDS (mobile: one column)
+   ========================================================== */
+.work-grid {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card__link {
+  display: block;
+  text-decoration: none;
+}
+
+.card__link:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+.card__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--color-primary);   /* shows if the image is missing */
+}
+
+.card__body {
+  padding: var(--space-3);
+}
+
+.card__tag {
+  color: var(--color-primary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.card__title {
+  margin-block: var(--space-1);
+  font-size: 1.35rem;
+}
+
+.card__text {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+/* ==========================================================
+   8. SERVICES
+   ========================================================== */
+.services-grid {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.service {
+  padding-top: var(--space-3);
+  border-top: 3px solid var(--color-primary);
+}
+
+.service__number {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.service__title {
+  margin-block: var(--space-1);
+  font-size: 1.35rem;
+}
+
+.service__text {
+  color: var(--color-text-muted);
+}
+
+.services__also {
+  margin-top: var(--space-6);
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+/* ==========================================================
+   9. ABOUT
+   ========================================================== */
+.section--alt {
+  background: var(--color-surface);   /* tinted background for rhythm */
+}
+
+.about {
+  display: grid;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.about__text p {
+  margin-top: var(--space-2);
+  max-width: 36rem;
+  color: var(--color-text-muted);
+}
+
+.about__text .btn {
+  margin-top: var(--space-4);
+}
+
+.about__image {
+  display: block;
+  width: calc(100% - 14px);
+  max-width: 420px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: var(--radius);
+  box-shadow: 14px 14px 0 var(--color-primary);
+}
+
+/* ==========================================================
+   10. CONTACT
+   ========================================================== */
+.contact__email {
+  display: inline-block;
+  margin-top: var(--space-4);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(1.1rem, 4.5vw, 1.75rem);
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+}
+
+.contact__email:hover {
+  color: var(--color-primary);
+}
+
+.social-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.social-list a {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.social-list a:hover {
+  text-decoration: none;
+}
+
+.contact a:focus-visible,
+.site-footer a:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* ==========================================================
+   11. FOOTER
+   ========================================================== */
+.site-footer {
+  border-top: 2px solid var(--color-surface);
+  padding-block: var(--space-4);
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.site-footer__inner {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* ==========================================================
+   12. FADE-IN ON SCROLL
+   ========================================================== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: calc(var(--delay, 0) * 0.1s);   /* staggers cards */
+}
+
+.fade-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);   /* JS adds this class once in view */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ==========================================================
+   13. TABLET / DESKTOP (applies from 768px wide and up)
+   ========================================================== */
+@media (min-width: 768px) {
+  .nav-toggle {
+    display: none;
+  }
+
+  .site-nav {
+    display: block;
+    position: static;
+    padding: 0;
+    background: none;
+    border: 0;
+  }
+
+  .nav-list {
+    flex-direction: row;
+    gap: var(--space-3);
+    font-size: 0.9rem;
+  }
+
+  .hero__inner {
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+  }
+
+  .work-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about {
+    grid-template-columns: 1.2fr 1fr;
+  }
+
+  .about__image {
+    justify-self: end;
+  }
+}
