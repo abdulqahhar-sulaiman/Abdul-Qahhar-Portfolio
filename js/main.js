@@ -30,8 +30,6 @@ navLinks.forEach((link) => {
 // ============================================================
 
 const themeToggle = document.querySelector('.theme-toggle');
-const themeLabel = document.querySelector('.theme-toggle__label');
-const themeIcon = document.querySelector('.theme-toggle__icon');
 
 // Prefixed to avoid clashing with any other data stored on this domain.
 const STORAGE_KEY = 'aq-portfolio-theme';
@@ -45,7 +43,8 @@ function getPreferredTheme() {
   return systemPrefersDark ? 'dark' : 'light';
 }
 
-// Updates the HTML, the button, and saves the choice for next time.
+// Updates the HTML and saves the choice for next time.
+// The moon/sun icon swap is handled by CSS, not here.
 function applyTheme(theme) {
   const isDark = theme === 'dark';
 
@@ -58,9 +57,6 @@ function applyTheme(theme) {
   }
 
   themeToggle.setAttribute('aria-pressed', isDark);
-  themeLabel.textContent = isDark ? 'Light mode' : 'Dark mode';   // shows the action, not the state
-  themeIcon.textContent = isDark ? '☀️' : '🌙';
-
   localStorage.setItem(STORAGE_KEY, theme);
 }
 

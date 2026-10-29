@@ -26,7 +26,7 @@
   --space-8: 4rem;     /* 64px */
 
   --radius: 12px;
-  --max-width: 1100px;
+  --max-width: 1600px;
 }
 
 /* Dark mode colors. JS adds data-theme="dark" to <html> */
@@ -88,7 +88,7 @@ a {
   width: 100%;
   max-width: var(--max-width);
   margin-inline: auto;
-  padding-inline: var(--space-3);
+  padding-inline: clamp(1.5rem, 5vw, 5rem);   /* side space grows with screen width */
 }
 
 /* Skip link: off-screen until it receives keyboard focus */
@@ -116,16 +116,72 @@ a {
 
 .site-header__inner {
   display: flex;
+  flex-wrap: wrap;                  /* wraps instead of overflowing on very small phones */
   justify-content: space-between;
   align-items: center;
+  gap: var(--space-2);
   padding-block: var(--space-3);
+}
+
+.site-header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .brand {
   font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 1.5rem;
+  font-weight: 600;
+  font-size: clamp(1rem, 4.2vw, 1.5rem);
+  letter-spacing: -0.01em;
   text-decoration: none;
+}
+
+/* Circular icon button */
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  background: var(--color-bg);
+  border: 1px solid color-mix(in srgb, var(--color-text) 20%, transparent);
+  border-radius: 50%;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--color-primary);
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.theme-toggle svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;   /* icon follows the button's text color */
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Light mode shows the moon; dark mode shows the sun */
+.theme-toggle__icon--sun {
+  display: none;
+}
+
+[data-theme="dark"] .theme-toggle__icon--sun {
+  display: block;
+}
+
+[data-theme="dark"] .theme-toggle__icon--moon {
+  display: none;
 }
 
 .nav-toggle {
@@ -179,28 +235,6 @@ a {
   color: var(--color-primary);
 }
 
-.theme-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: none;
-  border: 2px solid var(--color-text);
-  border-radius: var(--radius);
-  color: var(--color-text);
-  font: inherit;
-  font-size: 0.85rem;
-  font-weight: 500;
-  padding: 0.4rem 0.8rem;
-  cursor: pointer;
-  margin-left: auto;
-  margin-right: var(--space-2);
-}
-
-.theme-toggle:focus-visible {
-  outline: 3px solid var(--color-primary);
-  outline-offset: 3px;
-}
-
 /* ==========================================================
    4. BUTTON
    ========================================================== */
@@ -234,38 +268,73 @@ a {
 }
 
 .hero__eyebrow {
-  color: var(--color-primary);
+  margin-bottom: var(--space-3);
+  font-size: 0.8rem;
   font-weight: 500;
-  margin-bottom: var(--space-2);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .hero__title {
-  font-size: clamp(2.5rem, 8vw, 4.5rem);   /* scales between phone and desktop */
-  font-weight: 700;
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);   /* scales between phone and desktop */
+  font-weight: 600;
   letter-spacing: -0.02em;
 }
 
 .hero__lead {
-  margin-block: var(--space-3) var(--space-4);
-  max-width: 34rem;
+  margin-block: var(--space-4);
+  max-width: 38rem;
   color: var(--color-text-muted);
   font-size: 1.125rem;
 }
 
-/* Teal block with a coral offset shadow */
+/* Framed preview card with a thin border */
+/* Soft card with a tilted teal sheet behind it */
+/* Three layers: teal sheet (back), peach card (middle), content (front) */
 .hero__visual {
-  aspect-ratio: 4 / 3;
+  position: relative;
+  isolation: isolate;   /* keeps the layers behind the content, not the page */
+  margin: 0;
+  padding: var(--space-2);
+}
+
+.hero__visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;   /* furthest back */
   background: var(--color-primary);
-  border-radius: var(--radius);
-  box-shadow: 14px 14px 0 var(--color-accent);
-  margin-right: 14px;   /* room so the shadow doesn't get clipped */
+  border-radius: calc(var(--radius) * 1.5);
+  transform: rotate(3deg);
+}
+
+.hero__visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;   /* between the teal sheet and the content */
+  background: var(--color-surface);
+  border-radius: calc(var(--radius) * 1.5);
+  box-shadow: 0 24px 48px -24px rgba(27, 42, 47, 0.35);
+}
+
+/* Label row: category on the left, client on the right */
+.hero__caption {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-1) var(--space-2);
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .hero__visual img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   border-radius: var(--radius);
 }
 
@@ -287,12 +356,13 @@ a {
 }
 
 /* ==========================================================
-   7. WORK GRID + CARDS (mobile: one column)
+   7. WORK GRID + CARDS
    ========================================================== */
 .work-grid {
   display: grid;
   gap: var(--space-4);
   margin-top: var(--space-6);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
 }
 
 .card {
@@ -409,7 +479,7 @@ a {
 
 .about__image {
   display: block;
-  width: calc(100% - 14px);
+  width: calc(100% - 14px);   /* leaves room for the offset shadow */
   max-width: 420px;
   height: auto;
   aspect-ratio: 1 / 1;
@@ -507,6 +577,11 @@ a {
    13. TABLET / DESKTOP (applies from 768px wide and up)
    ========================================================== */
 @media (min-width: 768px) {
+  .theme-toggle {
+    width: 3rem;
+    height: 3rem;
+  }
+
   .nav-toggle {
     display: none;
   }
@@ -528,10 +603,6 @@ a {
   .hero__inner {
     grid-template-columns: 1.2fr 1fr;
     align-items: center;
-  }
-
-  .work-grid {
-    grid-template-columns: repeat(2, 1fr);
   }
 
   .about {
