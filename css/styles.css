@@ -1,21 +1,46 @@
 /* ==========================================================
    1. DESIGN TOKENS
-   Custom properties (variables). Change a value here and it
-   updates everywhere it is used.
+   Brand guidelines v1.0. Change a value here and it updates
+   everywhere it is used.
    ========================================================== */
 :root {
-  /* Colors (light mode) */
-  --color-bg: #FBF6F1;
-  --color-surface: #FFE9E0;
-  --color-text: #1B2A2F;
-  --color-text-muted: #4A5D63;
-  --color-primary: #2F6F6D;
-  --color-accent: #FF7A59;
-  --color-on-accent: #1B2A2F;   /* text color placed ON the accent */
+  /* Brand palette (fixed, never changes with the theme) */
+  --ink: #111111;
+  --ink-800: #1C1C1C;
+  --ink-700: #2A2A2A;
+  --bone: #F4F1EA;
+  --bone-400: #C4BFB4;
+  --bone-300: #D8D4CB;
+  --paper: #FFFFFF;
+  --slate-700: #4A4A4A;
+  --signal: #FF5A1F;
+  --signal-600: #E64A12;
+  --signal-700: #C23C0C;
+
+  /* Semantic colors (light mode) */
+  --color-bg: var(--bone);
+  --color-surface: var(--paper);
+  --color-text: var(--ink);
+  --color-text-muted: var(--slate-700);
+  --color-border: var(--bone-300);
+  --color-accent: var(--signal);
+  --color-accent-hover: var(--signal-600);
+  --color-on-accent: var(--ink);
+  --color-link: var(--signal-700);   /* the only orange approved for text on Bone */
 
   /* Fonts */
-  --font-heading: "Outfit", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;
+  --font-heading: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+
+  /* Type scale (from the guide: 56 / 40 / 28 / 22 / 18 / 14 / 12) */
+  --text-h1: clamp(2.25rem, 5vw, 3.5rem);
+  --text-h2: clamp(2rem, 4vw, 2.5rem);
+  --text-h3: clamp(1.5rem, 2.5vw, 1.75rem);
+  --text-h4: 1.375rem;
+  --text-body: 1.125rem;
+  --text-small: 0.875rem;
+  --text-caption: 0.75rem;
+  --tracking-caption: 0.12em;
 
   /* Spacing scale (rem: 1rem = 16px by default) */
   --space-1: 0.5rem;   /*  8px */
@@ -25,18 +50,18 @@
   --space-6: 3rem;     /* 48px */
   --space-8: 4rem;     /* 64px */
 
-  --radius: 12px;
+  --radius: 8px;
   --max-width: 1600px;
 }
 
-/* Dark mode colors. JS adds data-theme="dark" to <html> */
+/* Dark mode: Bone on Ink. JS adds data-theme="dark" to <html> */
 [data-theme="dark"] {
-  --color-bg: #0F1719;
-  --color-surface: #172427;
-  --color-text: #EDE8E3;
-  --color-text-muted: #A9B8BC;
-  --color-primary: #5FB3AE;
-  --color-accent: #FF8F73;
+  --color-bg: var(--ink);
+  --color-surface: var(--ink-800);
+  --color-text: var(--bone);
+  --color-text-muted: var(--bone-400);
+  --color-border: var(--ink-700);
+  --color-link: var(--signal);
 }
 
 /* ==========================================================
@@ -51,7 +76,7 @@
 body {
   margin: 0;
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: var(--text-body);
   line-height: 1.6;
   color: var(--color-text);
   background: var(--color-bg);
@@ -72,7 +97,6 @@ h1,
 h2,
 h3 {
   font-family: var(--font-heading);
-  line-height: 1.1;
   margin: 0;
 }
 
@@ -82,6 +106,12 @@ p {
 
 a {
   color: inherit;
+}
+
+/* One focus style for every link and button */
+:focus-visible {
+  outline: 3px solid var(--color-text);
+  outline-offset: 3px;
 }
 
 .container {
@@ -97,8 +127,8 @@ a {
   left: var(--space-2);
   top: -100px;
   padding: var(--space-1) var(--space-2);
-  background: var(--color-primary);
-  color: #fff;
+  background: var(--ink);
+  color: var(--bone);
   border-radius: var(--radius);
 }
 
@@ -145,7 +175,7 @@ a {
   height: 2.5rem;
   padding: 0;
   background: var(--color-bg);
-  border: 1px solid color-mix(in srgb, var(--color-text) 20%, transparent);
+  border: 1px solid var(--color-border);
   border-radius: 50%;
   color: var(--color-text);
   cursor: pointer;
@@ -153,12 +183,7 @@ a {
 }
 
 .theme-toggle:hover {
-  border-color: var(--color-primary);
-}
-
-.theme-toggle:focus-visible {
-  outline: 3px solid var(--color-primary);
-  outline-offset: 3px;
+  border-color: var(--color-text);
 }
 
 .theme-toggle svg {
@@ -195,11 +220,6 @@ a {
   cursor: pointer;
 }
 
-.nav-toggle:focus-visible {
-  outline: 3px solid var(--color-primary);
-  outline-offset: 3px;
-}
-
 /* Hidden by default; drops below the header when opened */
 .site-nav {
   display: none;
@@ -209,7 +229,7 @@ a {
   right: 0;
   padding: var(--space-3);
   background: var(--color-bg);
-  border-bottom: 2px solid var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .site-nav.is-open {
@@ -223,7 +243,7 @@ a {
   list-style: none;
   margin: 0;
   padding: 0;
-  font-size: 1.1rem;
+  font-size: var(--text-body);
   font-weight: 500;
 }
 
@@ -232,7 +252,7 @@ a {
 }
 
 .nav-list a:hover {
-  color: var(--color-primary);
+  color: var(--color-link);
 }
 
 /* ==========================================================
@@ -242,42 +262,50 @@ a {
   display: inline-block;
   padding: 0.85rem 1.75rem;
   background: var(--color-accent);
-  color: var(--color-on-accent);
+  color: var(--color-on-accent);   /* Ink on Signal: 6.1:1, never Bone */
   font-weight: 600;
   text-decoration: none;
   border-radius: var(--radius);
-  transition: transform 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .btn:hover {
-  transform: translateY(-2px);
-}
-
-.btn:focus-visible {
-  outline: 3px solid var(--color-primary);
-  outline-offset: 3px;
+  background: var(--color-accent-hover);
 }
 
 /* ==========================================================
-   5. HERO (mobile-first: this is the phone layout)
+   5. CAPTION STYLE
+   One shared style for every small uppercase label
+   ========================================================== */
+.hero__eyebrow,
+.hero__caption,
+.card__tag,
+.service__number {
+  font-size: var(--text-caption);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: var(--tracking-caption);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================
+   6. HERO (mobile-first: this is the phone layout)
    ========================================================== */
 .hero__inner {
   display: grid;
   gap: var(--space-6);
-  padding-block: var(--space-8);
+  padding-block: clamp(3rem, 7vw, 6rem);
 }
 
 .hero__eyebrow {
   margin-bottom: var(--space-3);
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
 }
 
 .hero__title {
-  font-size: clamp(2.25rem, 4.5vw, 3.5rem);   /* scales between phone and desktop */
-  font-weight: 600;
+  font-size: var(--text-h1);
+  font-weight: 700;
+  line-height: 1.05;
   letter-spacing: -0.02em;
 }
 
@@ -285,37 +313,15 @@ a {
   margin-block: var(--space-4);
   max-width: 38rem;
   color: var(--color-text-muted);
-  font-size: 1.125rem;
 }
 
-/* Framed preview card with a thin border */
-/* Soft card with a tilted teal sheet behind it */
-/* Three layers: teal sheet (back), peach card (middle), content (front) */
+/* Flat card with a thin border */
 .hero__visual {
-  position: relative;
-  isolation: isolate;   /* keeps the layers behind the content, not the page */
   margin: 0;
   padding: var(--space-2);
-}
-
-.hero__visual::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -2;   /* furthest back */
-  background: var(--color-primary);
-  border-radius: calc(var(--radius) * 1.5);
-  transform: rotate(3deg);
-}
-
-.hero__visual::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;   /* between the teal sheet and the content */
   background: var(--color-surface);
-  border-radius: calc(var(--radius) * 1.5);
-  box-shadow: 0 24px 48px -24px rgba(27, 42, 47, 0.35);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
 }
 
 /* Label row: category on the left, client on the right */
@@ -324,39 +330,58 @@ a {
   justify-content: space-between;
   gap: var(--space-2);
   padding: var(--space-1) var(--space-1) var(--space-2);
-  color: var(--color-text-muted);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 .hero__visual img {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: var(--radius);
+  border-radius: calc(var(--radius) / 2);
 }
 
 /* ==========================================================
-   6. SECTION BASICS (reused by every section)
+   7. SECTION BASICS (reused by every section)
    ========================================================== */
 .section {
-  padding-block: var(--space-8);
+  padding-block: clamp(4rem, 8vw, 7rem);   /* generous margins */
 }
 
 .section__title {
-  font-size: clamp(1.75rem, 5vw, 2.5rem);
-  letter-spacing: -0.01em;
+  font-size: var(--text-h2);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .section__intro {
-  margin-top: var(--space-1);
+  margin-top: var(--space-2);
+  max-width: 44rem;
   color: var(--color-text-muted);
 }
 
+/* Dark sections: the tokens are redefined for everything inside.
+   The footer shares the same treatment so the page closes in Ink. */
+.section--dark,
+.site-footer {
+  --color-bg: var(--ink);
+  --color-surface: var(--ink-800);
+  --color-text: var(--bone);
+  --color-text-muted: var(--bone-400);
+  --color-border: var(--ink-700);
+  --color-link: var(--signal);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* In dark mode the page is already Ink, so dark sections step up to Ink 800 */
+[data-theme="dark"] .section--dark {
+  --color-bg: var(--ink-800);
+  --color-surface: var(--ink-700);
+  --color-border: #3D3D3D;
+}
+
 /* ==========================================================
-   7. WORK GRID + CARDS
+   8. WORK GRID + CARDS
    ========================================================== */
 .work-grid {
   display: grid;
@@ -367,24 +392,19 @@ a {
 
 .card {
   background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: transform 0.2s ease;
+  transition: border-color 0.2s ease;
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  border-color: var(--color-text);
 }
 
 .card__link {
   display: block;
   text-decoration: none;
-}
-
-.card__link:focus-visible {
-  outline: 3px solid var(--color-primary);
-  outline-offset: 3px;
-  border-radius: var(--radius);
 }
 
 .card__image {
@@ -393,74 +413,56 @@ a {
   height: auto;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  background: var(--color-primary);   /* shows if the image is missing */
+  background: var(--color-border);   /* shows if the image is missing */
 }
 
 .card__body {
   padding: var(--space-3);
 }
 
-.card__tag {
-  color: var(--color-primary);
-  font-size: 0.8rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
 .card__title {
   margin-block: var(--space-1);
-  font-size: 1.35rem;
+  font-size: var(--text-h4);
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 .card__text {
   color: var(--color-text-muted);
-  font-size: 0.95rem;
+  font-size: var(--text-small);
+  line-height: 1.5;
 }
 
 /* ==========================================================
-   8. SERVICES
+   9. SERVICES
    ========================================================== */
 .services-grid {
   display: grid;
   gap: var(--space-4);
   margin-top: var(--space-6);
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
 }
 
 .service {
   padding-top: var(--space-3);
-  border-top: 3px solid var(--color-primary);
-}
-
-.service__number {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  color: var(--color-primary);
+  border-top: 1px solid var(--color-text);
 }
 
 .service__title {
   margin-block: var(--space-1);
-  font-size: 1.35rem;
+  font-size: var(--text-h3);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
 .service__text {
   color: var(--color-text-muted);
 }
 
-.services__also {
-  margin-top: var(--space-6);
-  color: var(--color-text-muted);
-  font-size: 0.95rem;
-}
-
 /* ==========================================================
-   9. ABOUT
+   10. ABOUT
    ========================================================== */
-.section--alt {
-  background: var(--color-surface);   /* tinted background for rhythm */
-}
-
 .about {
   display: grid;
   gap: var(--space-6);
@@ -468,7 +470,7 @@ a {
 }
 
 .about__text p {
-  margin-top: var(--space-2);
+  margin-top: var(--space-3);
   max-width: 36rem;
   color: var(--color-text-muted);
 }
@@ -479,34 +481,33 @@ a {
 
 .about__image {
   display: block;
-  width: calc(100% - 14px);   /* leaves room for the offset shadow */
+  width: 100%;
   max-width: 420px;
   height: auto;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   object-position: center top;
   border-radius: var(--radius);
-  box-shadow: 14px 14px 0 var(--color-primary);
 }
 
 /* ==========================================================
-   10. CONTACT
+   11. CONTACT
    ========================================================== */
 .contact__email {
   display: inline-block;
   margin-top: var(--space-4);
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: clamp(1.1rem, 4.5vw, 1.75rem);
+  font-size: clamp(1.25rem, 4.5vw, 1.75rem);
   overflow-wrap: anywhere;
   text-decoration: underline;
-  text-decoration-color: var(--color-accent);
-  text-decoration-thickness: 3px;
+  text-decoration-color: var(--color-accent);   /* the one orange on this screen */
+  text-decoration-thickness: 2px;
   text-underline-offset: 6px;
 }
 
 .contact__email:hover {
-  color: var(--color-primary);
+  color: var(--color-link);
 }
 
 .social-list {
@@ -519,28 +520,23 @@ a {
 }
 
 .social-list a {
-  color: var(--color-primary);
   font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .social-list a:hover {
-  text-decoration: none;
-}
-
-.contact a:focus-visible,
-.site-footer a:focus-visible {
-  outline: 3px solid var(--color-primary);
-  outline-offset: 3px;
+  color: var(--color-link);
 }
 
 /* ==========================================================
-   11. FOOTER
+   12. FOOTER
    ========================================================== */
 .site-footer {
-  border-top: 2px solid var(--color-surface);
+  border-top: 1px solid var(--color-border);
   padding-block: var(--space-4);
   color: var(--color-text-muted);
-  font-size: 0.9rem;
+  font-size: var(--text-small);
 }
 
 .site-footer__inner {
@@ -551,7 +547,7 @@ a {
 }
 
 /* ==========================================================
-   12. FADE-IN ON SCROLL
+   13. FADE-IN ON SCROLL
    ========================================================== */
 .fade-in {
   opacity: 0;
@@ -574,7 +570,7 @@ a {
 }
 
 /* ==========================================================
-   13. TABLET / DESKTOP (applies from 768px wide and up)
+   14. TABLET / DESKTOP (applies from 768px wide and up)
    ========================================================== */
 @media (min-width: 768px) {
   .theme-toggle {
@@ -597,7 +593,7 @@ a {
   .nav-list {
     flex-direction: row;
     gap: var(--space-3);
-    font-size: 0.9rem;
+    font-size: var(--text-small);
   }
 
   .hero__inner {
